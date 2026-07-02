@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1ヶ月 お腹すっきり手帳</title>
+</head>
+<body style="margin:0; padding:12px; background:#efe6d1;">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+
+.kh-app {
+  --paper: #f6f0e2;
+  --paper-deep: #efe6d1;
+  --line: #d9cdaa;
+  --ink: #2b2a26;
+  --ink-soft: #6b6455;
+  --hanko: #b3392f;
+  --hanko-deep: #8f2c24;
+  --matcha: #79895a;
+  --matcha-deep: #5c6a41;
+  --gold: #b8912e;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(184,145,46,0.06), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(121,137,90,0.07), transparent 45%);
+  border-radius: 18px;
+  padding: 28px 22px 34px;
+  max-width: 880px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+.kh-app *, .kh-app *::before, .kh-app *::after { box-sizing: border-box; }
+
+.kh-header { text-align: center; margin-bottom: 18px; position: relative; }
+.kh-eyebrow {
+  font-size: 12px; letter-spacing: 0.28em; color: var(--matcha-deep);
+  font-weight: 700; margin-bottom: 6px;
+}
+.kh-title {
+  font-family: 'Shippori Mincho', serif; font-weight: 800;
+  font-size: 26px; margin: 0 0 4px; color: var(--ink); letter-spacing: 0.02em;
+}
+.kh-sub { font-size: 13px; color: var(--ink-soft); margin: 0; }
+
+.kh-stats {
+  display: flex; gap: 10px; justify-content: center; margin: 18px 0 6px; flex-wrap: wrap;
+}
+.kh-stat-card {
+  background: var(--paper-deep); border: 1px solid var(--line); border-radius: 12px;
+  padding: 10px 16px; text-align: center; min-width: 96px;
+}
+.kh-stat-num {
+  font-family: 'Shippori Mincho', serif; font-weight: 800; font-size: 22px; color: var(--hanko);
+  line-height: 1;
+}
+.kh-stat-label { font-size: 11px; color: var(--ink-soft); margin-top: 4px; }
+
+.kh-progress-wrap { margin: 16px 4px 20px; }
+.kh-progress-track {
+  height: 10px; background: var(--paper-deep); border-radius: 6px; overflow: hidden;
+  border: 1px solid var(--line);
+}
+.kh-progress-fill {
+  height: 100%; background: linear-gradient(90deg, var(--matcha-deep), var(--matcha));
+  border-radius: 6px; transition: width 0.5s ease;
+}
+.kh-progress-text { font-size: 12px; color: var(--ink-soft); text-align: right; margin-top: 4px; }
+
+.kh-message {
+  background: #fffaf0; border: 1px dashed var(--gold); border-radius: 10px;
+  padding: 12px 16px; font-size: 13.5px; line-height: 1.7; margin-bottom: 20px;
+  color: var(--ink); position: relative;
+}
+.kh-message b { color: var(--hanko-deep); }
+
+.kh-tabs { display: flex; gap: 6px; margin-bottom: 18px; border-bottom: 2px solid var(--line); }
+.kh-tab {
+  flex: 1; text-align: center; padding: 10px 4px 9px; cursor: pointer;
+  font-size: 13px; font-weight: 700; color: var(--ink-soft);
+  border-radius: 8px 8px 0 0; position: relative; background: transparent;
+  transition: color 0.2s, background 0.2s; user-select: none;
+}
+.kh-tab.active { color: var(--hanko-deep); background: var(--paper-deep); }
+.kh-tab.active::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--hanko-deep);
+}
+.kh-tab-badge {
+  display: inline-block; font-size: 10px; margin-left: 4px; color: var(--matcha-deep);
+}
+
+.kh-week-title { font-family: 'Shippori Mincho', serif; font-weight: 700; font-size: 17px; margin: 0 0 2px; }
+.kh-week-desc { font-size: 12.5px; color: var(--ink-soft); margin: 0 0 16px; line-height: 1.6; }
+
+.kh-days-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px; margin-bottom: 18px;
+}
+.kh-day-card {
+  background: #fffdf8; border: 1.5px solid var(--line); border-radius: 12px;
+  padding: 10px 10px 12px; position: relative; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.kh-day-card.rest { background: repeating-linear-gradient(135deg, #fffdf8, #fffdf8 8px, #f6efe0 8px, #f6efe0 16px); }
+.kh-day-card.done { border-color: var(--hanko); }
+.kh-day-head {
+  display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;
+}
+.kh-day-num { font-family: 'Shippori Mincho', serif; font-weight: 700; font-size: 13px; color: var(--ink); }
+.kh-day-dow { font-size: 10.5px; color: var(--ink-soft); }
+.kh-item {
+  display: flex; align-items: flex-start; gap: 6px; font-size: 11.5px; line-height: 1.4;
+  margin-bottom: 5px; cursor: pointer; color: var(--ink);
+}
+.kh-item input { margin-top: 2px; accent-color: var(--matcha-deep); cursor: pointer; flex-shrink: 0; }
+.kh-item.checked span { text-decoration: line-through; color: var(--ink-soft); }
+
+.kh-hanko {
+  position: absolute; top: 6px; right: 6px; width: 46px; height: 46px;
+  opacity: 0; transform: scale(1.6) rotate(-18deg); pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.35s cubic-bezier(.34,1.56,.64,1);
+}
+.kh-day-card.done .kh-hanko { opacity: 0.94; transform: scale(1) rotate(-9deg); }
+
+.kh-waist-box {
+  background: var(--paper-deep); border: 1px solid var(--line); border-radius: 12px;
+  padding: 12px 14px; margin-bottom: 6px;
+}
+.kh-waist-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.kh-waist-label { font-size: 12.5px; font-weight: 700; color: var(--ink); white-space: nowrap; }
+.kh-waist-row input {
+  width: 84px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px;
+  font-size: 13px; font-family: 'Noto Sans JP', sans-serif; background: #fffdf8;
+}
+.kh-waist-unit { font-size: 12px; color: var(--ink-soft); }
+.kh-waist-diff { font-size: 12px; color: var(--matcha-deep); font-weight: 700; margin-left: auto; }
+.kh-waist-diff.neg { color: var(--hanko-deep); }
+
+.kh-day-food {
+  border-top: 1px dashed var(--line); margin-top: 7px; padding-top: 7px;
+  font-size: 10.5px; line-height: 1.45; color: var(--matcha-deep); font-weight: 500;
+  display: flex; align-items: flex-start; gap: 5px;
+}
+.kh-day-food-label {
+  flex-shrink: 0; font-size: 9px; font-weight: 700; color: #fff;
+  background: var(--matcha); border-radius: 8px; padding: 1px 7px; margin-top: 1px;
+}
+
+.kh-daily-list { border: 1px solid var(--line); border-radius: 10px; background: var(--paper); margin-bottom: 8px; }
+.kh-daily-list summary {
+  cursor: pointer; padding: 9px 12px; font-size: 12.5px; font-weight: 700;
+  color: var(--ink); list-style: none; display: flex; align-items: center; gap: 8px; user-select: none;
+}
+.kh-daily-list summary::-webkit-details-marker { display: none; }
+.kh-daily-list summary::before {
+  content: '▸'; color: var(--matcha-deep); font-size: 11px; transition: transform 0.2s;
+}
+.kh-daily-list[open] summary::before { transform: rotate(90deg); }
+.kh-daily-table { padding: 0 14px 12px; }
+.kh-daily-row {
+  display: flex; gap: 10px; align-items: baseline; padding: 6px 0;
+  border-bottom: 1px dashed var(--line); font-size: 12px;
+}
+.kh-daily-row:last-child { border-bottom: none; }
+.kh-daily-day {
+  flex-shrink: 0; width: 52px; font-family: 'Shippori Mincho', serif;
+  font-weight: 700; font-size: 12px; color: var(--ink);
+}
+.kh-daily-name { flex-shrink: 0; font-weight: 700; color: var(--matcha-deep); }
+.kh-daily-memo { color: var(--ink-soft); font-size: 11.5px; line-height: 1.5; }
+
+.kh-food-box {
+  background: #fffdf8; border: 1.5px solid var(--line); border-radius: 12px;
+  padding: 14px 16px 12px; margin-top: 14px;
+}
+.kh-food-title {
+  font-family: 'Shippori Mincho', serif; font-weight: 700; font-size: 15px;
+  color: var(--matcha-deep); margin: 0 0 2px;
+  display: flex; align-items: center; gap: 8px;
+}
+.kh-food-title::before {
+  content: ''; display: inline-block; width: 4px; height: 16px;
+  background: var(--matcha); border-radius: 2px;
+}
+.kh-food-desc { font-size: 12px; color: var(--ink-soft); margin: 0 0 10px; line-height: 1.6; }
+.kh-food-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.kh-food-tag {
+  font-size: 11.5px; font-weight: 700; color: var(--matcha-deep);
+  background: #eef1e3; border: 1px solid #d5dcc0; border-radius: 14px;
+  padding: 3px 11px;
+}
+.kh-recipe {
+  border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px;
+  background: var(--paper); overflow: hidden;
+}
+.kh-recipe summary {
+  cursor: pointer; padding: 9px 12px; font-size: 12.5px; font-weight: 700;
+  color: var(--ink); list-style: none; display: flex; align-items: center; gap: 8px;
+  user-select: none;
+}
+.kh-recipe summary::-webkit-details-marker { display: none; }
+.kh-recipe summary::before {
+  content: '▸'; color: var(--hanko); font-size: 11px; transition: transform 0.2s;
+}
+.kh-recipe[open] summary::before { transform: rotate(90deg); }
+.kh-recipe-time {
+  margin-left: auto; font-size: 10.5px; font-weight: 500; color: var(--ink-soft);
+  background: var(--paper-deep); border-radius: 10px; padding: 2px 8px;
+}
+.kh-recipe-body { padding: 2px 14px 12px; font-size: 12px; line-height: 1.7; }
+.kh-recipe-body .kh-r-label {
+  font-weight: 700; color: var(--matcha-deep); font-size: 11.5px; margin: 8px 0 2px;
+}
+.kh-recipe-body ol, .kh-recipe-body ul { margin: 0; padding-left: 18px; }
+.kh-recipe-body li { margin-bottom: 2px; }
+
+.kh-footer { display: flex; justify-content: center; margin-top: 22px; }
+.kh-reset-btn {
+  font-size: 11.5px; color: var(--ink-soft); background: none; border: none;
+  text-decoration: underline; cursor: pointer; padding: 4px;
+}
+
+@media (max-width: 480px) {
+  .kh-title { font-size: 21px; }
+  .kh-days-grid { grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); }
+  .kh-stat-card { min-width: 80px; padding: 8px 10px; }
+}
+</style>
+
+<div class="kh-app" id="khApp">
+  <div class="kh-header">
+    <div class="kh-eyebrow">1 GETSU BODY RESET</div>
+    <h1 class="kh-title">1ヶ月 お腹すっきり手帳</h1>
+    <p class="kh-sub">毎日クリアすると、はんこが押されます。まずは1日目から。</p>
+  </div>
+
+  <div class="kh-stats">
+    <div class="kh-stat-card"><div class="kh-stat-num" id="khStatDone">0</div><div class="kh-stat-label">完了日数</div></div>
+    <div class="kh-stat-card"><div class="kh-stat-num" id="khStatStreak">0</div><div class="kh-stat-label">連続記録</div></div>
+    <div class="kh-stat-card"><div class="kh-stat-num" id="khStatBest">0</div><div class="kh-stat-label">最長記録</div></div>
+  </div>
+
+  <div class="kh-progress-wrap">
+    <div class="kh-progress-track"><div class="kh-progress-fill" id="khProgressFill" style="width:0%"></div></div>
+    <div class="kh-progress-text" id="khProgressText">全体の進捗 0%</div>
+  </div>
+
+  <div class="kh-message" id="khMessage">読み込み中...</div>
+
+  <div class="kh-tabs" id="khTabs"></div>
+  <div id="khWeekPanel"></div>
+
+  <div class="kh-footer">
+    <button class="kh-reset-btn" id="khResetBtn">記録をリセットする</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'kenko-1getsu-program-v1';
+
+  const WEEKS = [
+    {
+      label: '第1週', theme: '慣らし期',
+      desc: '体を運動に慣れさせる週。無理せず「毎日やる」ことだけを目標にしましょう。',
+      weekdayItems: ['ウォーキング 15分', 'ドローイン 10回×2セット', 'ラジオ体操第一'],
+      restItems: ['全身ストレッチ 5分', '深呼吸でリラックス']
+    },
+    {
+      label: '第2週', theme: '基礎固め期',
+      desc: '体幹の筋肉を意識づける週。かかと上げ腹筋を追加し、お腹まわりに効かせます。',
+      weekdayItems: ['ウォーキング 20分', 'ドローイン 10回×2セット', 'かかと上げ腹筋 左右10回', 'ラジオ体操第一・第二'],
+      restItems: ['全身ストレッチ 7分', '深呼吸でリラックス']
+    },
+    {
+      label: '第3週', theme: '強化期',
+      desc: '負荷を少し上げる週。プランクを追加して体幹をさらに鍛えます。',
+      weekdayItems: ['ウォーキング 25分', 'ドローイン 10回×2セット', 'かかと上げ腹筋 左右12回', '膝つきプランク 20秒×3'],
+      restItems: ['全身ストレッチ 8分', 'ウエスト周りマッサージ']
+    },
+    {
+      label: '第4週', theme: '仕上げ期',
+      desc: '1ヶ月の集大成。ここまで続けてきた自分を信じて、仕上げていきましょう。',
+      weekdayItems: ['ウォーキング 30分', 'ドローイン 10回×2セット', 'かかと上げ腹筋 左右15回', 'プランク 30秒×3', 'ラジオ体操第一・第二'],
+      restItems: ['全身ストレッチ 10分', 'この1ヶ月を振り返る']
+    }
+  ];
+  const DOW = ['月','火','水','木','金','土','日'];
+
+  const FOODS = [
+    {
+      theme: '腸を整える週',
+      desc: 'まずは腸内環境から。発酵食品と食物繊維で、お腹の中をすっきりさせる土台を作ります。',
+      tags: ['納豆', 'ヨーグルト', 'キャベツ', 'わかめ', 'バナナ', '味噌'],
+      daily: [
+        { name: '納豆ごはん', memo: '付属タレ+刻みねぎ。朝いちばんの腸活に' },
+        { name: 'キャベツの塩昆布あえ', memo: 'ちぎったキャベツを塩昆布と揉むだけ' },
+        { name: 'わかめと豆腐の味噌汁', memo: '定番の腸活汁物。夕食に一杯' },
+        { name: 'バナナヨーグルト', memo: 'はちみつ少しで満足感アップ' },
+        { name: 'キムチ納豆', memo: '混ぜるだけで発酵食品のW効果' },
+        { name: '具だくさん野菜スープ', memo: '冷蔵庫の余り野菜をコンソメで煮るだけ' },
+        { name: '温かいおかゆ', memo: '休養日は胃腸も休ませる。梅干しと一緒に' }
+      ],
+      recipes: [
+        {
+          name: 'キャベツとわかめのさっぱり味噌汁', time: '約10分',
+          ingredients: ['キャベツ 2枚(ざく切り)', '乾燥わかめ ひとつまみ', 'だし入り味噌 大さじ1', '水 400ml'],
+          steps: ['鍋に水とキャベツを入れて中火で5分煮る', 'わかめを加えてひと煮立ちさせる', '火を止めて味噌を溶き入れる']
+        },
+        {
+          name: 'はちみつバナナヨーグルト', time: '約3分',
+          ingredients: ['プレーンヨーグルト 100g', 'バナナ 1本', 'はちみつ 小さじ1'],
+          steps: ['バナナを輪切りにする', 'ヨーグルトにのせて、はちみつをかける', '朝食か運動後のおやつにどうぞ']
+        }
+      ]
+    },
+    {
+      theme: 'たんぱく質で筋肉づくりの週',
+      desc: '運動の効果を高めるたんぱく質を意識。筋肉の材料をしっかり摂って、代謝の良い体へ。',
+      tags: ['鶏むね肉', '卵', '豆腐', 'ブロッコリー', 'サラダチキン', '枝豆'],
+      daily: [
+        { name: 'サラダチキン', memo: 'コンビニのでOK。そのまま一品になる' },
+        { name: 'ゆで卵 2個', memo: '朝まとめて茹でて冷蔵庫に常備すると楽' },
+        { name: '冷奴 生姜のせ', memo: 'おろし生姜+醤油でさっぱり' },
+        { name: '鶏むねのレンジ蒸し', memo: '下のレシピ参照。多めに作って作り置きに' },
+        { name: '枝豆と豆腐のサラダ', memo: '冷凍枝豆を解凍して豆腐にのせるだけ' },
+        { name: '卵ときのこの炒め物', memo: 'フライパン5分。塩こしょうだけで十分' },
+        { name: '湯豆腐', memo: '休養日は胃にやさしくたんぱく質補給' }
+      ],
+      recipes: [
+        {
+          name: '鶏むね肉のしっとりレンジ蒸し', time: '約12分',
+          ingredients: ['鶏むね肉 1枚', '酒 大さじ1', '塩 少々', 'ポン酢・ごま お好みで'],
+          steps: ['鶏むね肉をフォークで数カ所刺し、酒と塩をもみ込む', '耐熱皿にのせてふんわりラップ、600Wで4分', '裏返してさらに3分、そのまま5分置いて余熱で火を通す', '食べやすく裂いてポン酢とごまをかける']
+        },
+        {
+          name: '豆腐とブロッコリーの温サラダ', time: '約8分',
+          ingredients: ['絹豆腐 半丁', 'ブロッコリー 1/2株', 'かつお節・醤油 適量'],
+          steps: ['ブロッコリーを小房に分け、耐熱容器で600W 2分半チン', '水切りした豆腐を大きめにくずして合わせる', 'かつお節と醤油をかける']
+        }
+      ]
+    },
+    {
+      theme: '代謝アップの週',
+      desc: '運動強度が上がる週。青魚のオメガ3と生姜・きのこで、脂肪燃焼をあと押しします。',
+      tags: ['サバ缶', '生姜', 'きのこ', '玄米', '唐辛子', '緑茶'],
+      daily: [
+        { name: 'サバ缶そのまま一品', memo: '汁ごと器に。ねぎと生姜をのせると立派なおかず' },
+        { name: '生姜スープ', memo: '鶏ガラスープ+おろし生姜。体が温まる' },
+        { name: 'きのこのホイル焼き', memo: 'トースターで8分。ポン酢をひとかけ' },
+        { name: 'サバ缶ときのこの生姜スープ', memo: '下のレシピ参照。この週のメイン料理' },
+        { name: '玄米おにぎり', memo: '塩むすびでよく噛んで。腹持ちがいい' },
+        { name: '豚肉と生姜の炒め物', memo: '代謝アップの定番。キャベツを添えて' },
+        { name: 'きのこ雑炊', memo: '休養日は消化のよいもので締める' }
+      ],
+      recipes: [
+        {
+          name: 'サバ缶ときのこの生姜スープ', time: '約10分',
+          ingredients: ['サバ水煮缶 1缶(汁ごと)', 'しめじ 1/2袋', 'おろし生姜 小さじ1', '水 300ml', '醤油 小さじ2', 'ねぎ 適量'],
+          steps: ['鍋に水・サバ缶(汁ごと)・ほぐしたしめじを入れて火にかける', '煮立ったら生姜と醤油を加えて3分煮る', '器に盛り、ねぎを散らす']
+        },
+        {
+          name: 'きのこたっぷり玄米雑炊', time: '約12分',
+          ingredients: ['玄米ごはん 茶碗1杯', 'お好みのきのこ 100g', '卵 1個', 'めんつゆ 大さじ1', '水 300ml'],
+          steps: ['鍋に水ときのこを入れて煮立てる', '玄米ごはんとめんつゆを加えて5分煮る', '溶き卵を回し入れ、ふたをして火を止める']
+        }
+      ]
+    },
+    {
+      theme: 'むくみオフで仕上げの週',
+      desc: '最終週はカリウムと良質な脂で、むくみをすっきり。見た目の仕上がりが変わります。',
+      tags: ['アボカド', 'トマト', '海藻', 'きゅうり', '豆腐', '緑茶'],
+      daily: [
+        { name: 'トマトときゅうりのサラダ', memo: '塩とオリーブオイルだけでさっぱり' },
+        { name: 'アボカド冷奴', memo: '豆腐+角切りアボカド+醤油。良質な脂で満足' },
+        { name: 'わかめスープ', memo: 'カリウムでむくみオフ。夕食の一杯に' },
+        { name: '蒸し野菜のポン酢がけ', memo: 'ブロッコリーや人参をレンジで3分' },
+        { name: 'アボカドとトマトのサラダ', memo: '下のレシピ参照。仕上げ週の定番に' },
+        { name: '海藻サラダ', memo: '市販の海藻ミックスで手軽に' },
+        { name: '野菜たっぷり味噌汁', memo: '最終日。1ヶ月完走の自分をねぎらう一杯' }
+      ],
+      recipes: [
+        {
+          name: 'アボカドとトマトのさっぱりサラダ', time: '約5分',
+          ingredients: ['アボカド 1個', 'トマト 1個', 'レモン汁 小さじ1', 'オリーブオイル 小さじ1', '塩 少々'],
+          steps: ['アボカドとトマトを一口大に切る', 'レモン汁・オリーブオイル・塩で和える', '食べる直前に和えると色がきれいなまま']
+        },
+        {
+          name: 'わかめと豆腐の中華風スープ', time: '約8分',
+          ingredients: ['絹豆腐 半丁', '乾燥わかめ ひとつまみ', '鶏ガラスープの素 小さじ2', '水 400ml', 'ごま油 少々'],
+          steps: ['鍋に水と鶏ガラスープの素を入れて煮立てる', '豆腐をスプーンですくって入れ、わかめを加えて2分煮る', '仕上げにごま油を数滴たらす']
+        }
+      ]
+    }
+  ];
+
+  const QUOTES_LOW = [
+    '始めた時点で、もう半分は成功しています。今日の1つだけやってみましょう。',
+    '完璧じゃなくて大丈夫。「やった」の積み重ねが手帳に残っていきます。',
+    '昨日より1つ多くチェックがついたら、それはもう前進です。'
+  ];
+  const QUOTES_MID = [
+    'ここまで続いているのは、意志が強いからです。その調子。',
+    '体が少しずつ変化に気づき始める頃。焦らずこのペースで。',
+    '折り返し地点です。ここまでの自分に「よくやった」と言ってあげましょう。'
+  ];
+  const QUOTES_HIGH = [
+    'かなり手帳が埋まってきました。習慣はもう身についています。',
+    'ゴールが見えてきました。最後まで自分のペースで大丈夫です。',
+    'ここまで来たら、もう「続けられる人」です。誇っていいですよ。'
+  ];
+  const QUOTES_DONE = [
+    '1ヶ月、お疲れ様でした。ここまで続けられたことが何よりの成果です。',
+    '完走です。この習慣、来月もぜひ続けてみてください。'
+  ];
+
+  let state = { checks: {}, waist: {} };
+  let currentWeek = 0;
+
+  function itemId(w, d, i) { return 'w' + w + '-d' + d + '-i' + i; }
+
+  function getDayItems(w, d) {
+    return (d === 6) ? WEEKS[w].restItems : WEEKS[w].weekdayItems;
+  }
+
+  function isDayDone(w, d) {
+    const items = getDayItems(w, d);
+    for (let i = 0; i < items.length; i++) {
+      if (!state.checks[itemId(w, d, i)]) return false;
+    }
+    return true;
+  }
+
+  function computeTotals() {
+    let totalItems = 0, doneItems = 0, totalDays = 0, doneDays = 0;
+    let flatDone = [];
+    for (let w = 0; w < 4; w++) {
+      for (let d = 0; d < 7; d++) {
+        const items = getDayItems(w, d);
+        totalItems += items.length;
+        totalDays++;
+        const done = isDayDone(w, d);
+        if (done) doneDays++;
+        for (let i = 0; i < items.length; i++) {
+          if (state.checks[itemId(w, d, i)]) doneItems++;
+        }
+        flatDone.push(done);
+      }
+    }
+    // streak calc (current = trailing consecutive done days up to last done day; best = longest run)
+    let best = 0, run = 0;
+    for (let i = 0; i < flatDone.length; i++) {
+      if (flatDone[i]) { run++; best = Math.max(best, run); } else { run = 0; }
+    }
+    let current = 0;
+    for (let i = flatDone.length - 1; i >= 0; i--) {
+      if (flatDone[i]) current++; else break;
+    }
+    return { totalItems, doneItems, totalDays, doneDays, current, best };
+  }
+
+  function pickQuote(pct) {
+    let pool;
+    if (pct >= 100) pool = QUOTES_DONE;
+    else if (pct >= 66) pool = QUOTES_HIGH;
+    else if (pct >= 33) pool = QUOTES_MID;
+    else pool = QUOTES_LOW;
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  function hankoSVG() {
+    return '<svg viewBox="0 0 100 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">' +
+      '<defs><filter id="khRough"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/>' +
+      '<feDisplacementMap in="SourceGraphic" in2="n" scale="4"/></filter></defs>' +
+      '<circle cx="50" cy="50" r="42" fill="none" stroke="#b3392f" stroke-width="6" filter="url(#khRough)"/>' +
+      '<text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-size="30" fill="#b3392f" ' +
+      'font-family="Shippori Mincho, serif" font-weight="800" filter="url(#khRough)">済</text></svg>';
+  }
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        state.checks = parsed.checks || {};
+        state.waist = parsed.waist || {};
+      }
+    } catch (e) { /* no saved data yet */ }
+  }
+
+  let saveTimer = null;
+  function saveState() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+      catch (e) { console.error('保存に失敗しました', e); }
+    }, 250);
+  }
+
+  function renderTabs() {
+    const tabsEl = document.getElementById('khTabs');
+    tabsEl.innerHTML = '';
+    WEEKS.forEach((w, idx) => {
+      let doneCount = 0;
+      for (let d = 0; d < 7; d++) if (isDayDone(idx, d)) doneCount++;
+      const tab = document.createElement('div');
+      tab.className = 'kh-tab' + (idx === currentWeek ? ' active' : '');
+      tab.innerHTML = w.label + '<span class="kh-tab-badge">(' + doneCount + '/7)</span>';
+      tab.onclick = () => { currentWeek = idx; renderAll(); };
+      tabsEl.appendChild(tab);
+    });
+  }
+
+  function renderWeekPanel() {
+    const panel = document.getElementById('khWeekPanel');
+    const w = WEEKS[currentWeek];
+    let html = '<div class="kh-week-title">' + w.label + '「' + w.theme + '」</div>';
+    html += '<p class="kh-week-desc">' + w.desc + '</p>';
+    html += '<div class="kh-days-grid">';
+    for (let d = 0; d < 7; d++) {
+      const items = getDayItems(currentWeek, d);
+      const done = isDayDone(currentWeek, d);
+      const dayNum = currentWeek * 7 + d + 1;
+      html += '<div class="kh-day-card ' + (d === 6 ? 'rest ' : '') + (done ? 'done' : '') + '" data-w="' + currentWeek + '" data-d="' + d + '">';
+      html += '<div class="kh-hanko">' + hankoSVG() + '</div>';
+      html += '<div class="kh-day-head"><span class="kh-day-num">' + dayNum + '日目</span><span class="kh-day-dow">' + DOW[d] + (d === 6 ? '・休養' : '') + '</span></div>';
+      items.forEach((label, i) => {
+        const id = itemId(currentWeek, d, i);
+        const checked = !!state.checks[id];
+        html += '<label class="kh-item ' + (checked ? 'checked' : '') + '" data-id="' + id + '">' +
+          '<input type="checkbox" ' + (checked ? 'checked' : '') + '><span>' + label + '</span></label>';
+      });
+      html += '<div class="kh-day-food"><span class="kh-day-food-label">一品</span>' + FOODS[currentWeek].daily[d].name + '</div>';
+      html += '</div>';
+    }
+    html += '</div>';
+
+    const waistVal = state.waist['w' + currentWeek] || '';
+    const w1Val = state.waist['w0'];
+    let diffHtml = '';
+    if (currentWeek > 0 && waistVal && w1Val) {
+      const diff = (parseFloat(w1Val) - parseFloat(waistVal)).toFixed(1);
+      const sign = diff > 0 ? '-' : (diff < 0 ? '+' : '±');
+      diffHtml = '<span class="kh-waist-diff ' + (diff < 0 ? 'neg' : '') + '">1週目から ' + sign + Math.abs(diff) + 'cm</span>';
+    }
+    html += '<div class="kh-waist-box"><div class="kh-waist-row">' +
+      '<span class="kh-waist-label">ウエスト記録(' + w.label + ')</span>' +
+      '<input type="number" step="0.1" id="khWaistInput" value="' + waistVal + '" placeholder="例: 84.0">' +
+      '<span class="kh-waist-unit">cm</span>' + diffHtml + '</div></div>';
+
+    const food = FOODS[currentWeek];
+    html += '<div class="kh-food-box">';
+    html += '<p class="kh-food-title">今週のおすすめ食べ物「' + food.theme + '」</p>';
+    html += '<p class="kh-food-desc">' + food.desc + '</p>';
+    html += '<div class="kh-food-tags">' + food.tags.map(t => '<span class="kh-food-tag">' + t + '</span>').join('') + '</div>';
+    html += '<details class="kh-daily-list" open><summary>毎日の一品カレンダー(' + w.label + ')</summary><div class="kh-daily-table">';
+    food.daily.forEach((f, d) => {
+      const dayNum = currentWeek * 7 + d + 1;
+      html += '<div class="kh-daily-row"><span class="kh-daily-day">' + dayNum + '日目' + (d === 6 ? '・休' : '') + '</span>' +
+        '<span class="kh-daily-name">' + f.name + '</span>' +
+        '<span class="kh-daily-memo">' + f.memo + '</span></div>';
+    });
+    html += '</div></details>';
+    food.recipes.forEach(r => {
+      html += '<details class="kh-recipe"><summary>' + r.name + '<span class="kh-recipe-time">' + r.time + '</span></summary>';
+      html += '<div class="kh-recipe-body">';
+      html += '<div class="kh-r-label">材料</div><ul>' + r.ingredients.map(x => '<li>' + x + '</li>').join('') + '</ul>';
+      html += '<div class="kh-r-label">作り方</div><ol>' + r.steps.map(x => '<li>' + x + '</li>').join('') + '</ol>';
+      html += '</div></details>';
+    });
+    html += '</div>';
+
+    panel.innerHTML = html;
+
+    panel.querySelectorAll('.kh-item').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = el.getAttribute('data-id');
+        state.checks[id] = !state.checks[id];
+        saveState();
+        renderAll();
+      });
+    });
+    document.getElementById('khWaistInput').addEventListener('change', (e) => {
+      state.waist['w' + currentWeek] = e.target.value;
+      saveState();
+      renderWeekPanel();
+    });
+  }
+
+  function renderStatsAndMessage() {
+    const t = computeTotals();
+    document.getElementById('khStatDone').textContent = t.doneDays;
+    document.getElementById('khStatStreak').textContent = t.current;
+    document.getElementById('khStatBest').textContent = t.best;
+    const pct = t.totalItems ? Math.round((t.doneItems / t.totalItems) * 100) : 0;
+    document.getElementById('khProgressFill').style.width = pct + '%';
+    document.getElementById('khProgressText').textContent = '全体の進捗 ' + pct + '%(' + t.doneDays + '/' + t.totalDays + '日 完了)';
+
+    const msgEl = document.getElementById('khMessage');
+    let extra = '';
+    if (t.current >= 3) extra = ' <b>' + t.current + '日連続</b>、素晴らしいペースです。';
+    msgEl.innerHTML = pickQuote(pct) + extra;
+  }
+
+  function renderAll() {
+    renderTabs();
+    renderWeekPanel();
+    renderStatsAndMessage();
+  }
+
+  document.getElementById('khResetBtn').addEventListener('click', () => {
+    if (!confirm('すべての記録をリセットします。よろしいですか?')) return;
+    state = { checks: {}, waist: {} };
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    renderAll();
+  });
+
+  (function init() {
+    loadState();
+    renderAll();
+  })();
+})();
+</script>
+</body>
+</html>
