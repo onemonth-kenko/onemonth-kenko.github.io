@@ -125,6 +125,10 @@
   transition: opacity 0.25s ease, transform 0.35s cubic-bezier(.34,1.56,.64,1);
 }
 .kh-day-card.done .kh-hanko { opacity: 0.94; transform: scale(1) rotate(-9deg); }
+.kh-hanko-mark {
+  display: block; width: 100%; height: 100%;
+  font-size: 40px; line-height: 46px; text-align: center;
+}
 
 .kh-waist-box {
   background: var(--paper-deep); border: 1px solid var(--line); border-radius: 12px;
@@ -473,12 +477,7 @@
   }
 
   function hankoSVG() {
-    return '<svg viewBox="0 0 100 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">' +
-      '<defs><filter id="khRough"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/>' +
-      '<feDisplacementMap in="SourceGraphic" in2="n" scale="4"/></filter></defs>' +
-      '<circle cx="50" cy="50" r="42" fill="none" stroke="#b3392f" stroke-width="6" filter="url(#khRough)"/>' +
-      '<text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-size="30" fill="#b3392f" ' +
-      'font-family="Shippori Mincho, serif" font-weight="800" filter="url(#khRough)">済</text></svg>';
+    return '<span class="kh-hanko-mark" aria-label="よくできました">\u{1F4AE}</span>';
   }
 
   function loadState() {
