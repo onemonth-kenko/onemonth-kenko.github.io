@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="食べる順番">
+<title>食べる順番｜燃えやすい体づくり</title>
+<style>
+  :root{
+    --bg:#fdf6ec; --card:#fffdf8; --ink:#3a2f26; --sub:#8a7a68;
+    --line:#e8dccb; --hot:#d9541e; --hot-soft:#fbe6da;
+    --green:#5c7a4a; --green-soft:#e8efe2;
+    --shadow:0 2px 10px rgba(120,90,50,.08);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN",-apple-system,sans-serif;
+    line-height:1.7;-webkit-text-size-adjust:100%;padding-bottom:88px;
+  }
+  header{
+    background:linear-gradient(160deg,#d9541e,#e8894a);color:#fff;
+    padding:calc(env(safe-area-inset-top) + 20px) 20px 22px;text-align:center;
+  }
+  header h1{margin:0;font-size:19px;letter-spacing:.04em}
+  header p{margin:6px 0 0;font-size:12.5px;opacity:.9}
+  main{max-width:620px;margin:0 auto;padding:16px 14px}
+  section{display:none}
+  section.on{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px;margin-bottom:14px;box-shadow:var(--shadow);
+  }
+  h2{font-size:15px;margin:0 0 12px;display:flex;align-items:center;gap:7px}
+  h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--hot);flex:none}
+  .muted{color:var(--sub);font-size:12.5px}
+
+  /* ===== 食べる順番：階段 ===== */
+  .ladder{position:relative;padding-left:6px}
+  .stepbox{
+    position:relative;display:flex;gap:13px;padding:15px 0;
+    border-bottom:1px dashed var(--line);cursor:pointer;
+  }
+  .stepbox:last-child{border-bottom:0}
+  .stepbox .n{
+    flex:none;width:34px;height:34px;border-radius:50%;
+    background:var(--hot-soft);color:var(--hot);
+    font-size:15px;font-weight:700;display:grid;place-items:center;margin-top:1px;
+    transition:.2s;
+  }
+  .stepbox.done .n{background:var(--green);color:#fff}
+  .stepbox.done .t{color:var(--sub);text-decoration:line-through}
+  .stepbox .t{font-weight:700;font-size:16px}
+  .stepbox .ex{font-size:13px;color:var(--ink);margin-top:3px}
+  .stepbox .d{font-size:12.5px;color:var(--sub);margin-top:5px}
+  .stepbox .cal{
+    display:inline-block;font-size:10.5px;background:var(--green-soft);color:var(--green);
+    border-radius:99px;padding:2px 9px;margin-left:7px;vertical-align:middle;font-weight:400;
+  }
+  .lastone .n{background:var(--hot);color:#fff}
+  .progressline{
+    height:9px;background:var(--hot-soft);border-radius:99px;overflow:hidden;margin:2px 0 14px;
+  }
+  .progressline > i{
+    display:block;height:100%;width:0;border-radius:99px;transition:width .35s;
+    background:linear-gradient(90deg,#e8894a,#5c7a4a);
+  }
+  .arrowhint{
+    text-align:center;font-size:12px;color:var(--sub);
+    background:var(--hot-soft);border-radius:10px;padding:9px;margin-bottom:14px;
+  }
+  .arrowhint b{color:var(--hot)}
+  .btn{
+    display:block;width:100%;padding:13px;border:0;border-radius:11px;
+    background:var(--hot);color:#fff;font-size:15px;font-weight:600;
+    font-family:inherit;cursor:pointer;margin-top:12px;
+  }
+  .btn:active{opacity:.85}
+  .btn.ghost{background:transparent;color:var(--sub);border:1px solid var(--line);font-weight:400;font-size:13.5px;padding:10px}
+  .warm{background:var(--hot-soft);border-radius:10px;padding:12px 14px;font-size:12.5px}
+  .warm b{color:var(--hot)}
+
+  /* ===== 献立 ===== */
+  .daynav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:10px}
+  .daynav button{
+    border:1px solid var(--line);background:var(--card);border-radius:9px;
+    padding:7px 13px;font-size:16px;font-family:inherit;cursor:pointer;color:var(--ink)
+  }
+  .daynav .cur{font-weight:700;font-size:15px}
+  .rot{display:flex;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
+  .rot:last-child{border-bottom:0}
+  .rot .tag{
+    flex:none;font-size:11px;padding:3px 8px;border-radius:99px;
+    background:var(--green-soft);color:var(--green);margin-top:3px;min-width:64px;text-align:center
+  }
+  .rot .body{font-size:14px}
+  .rot .body small{display:block;color:var(--sub);font-size:12px;margin-top:2px}
+
+  /* ===== 記録 ===== */
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 4px}
+  .chip{
+    border:1px solid var(--line);background:var(--card);border-radius:99px;
+    padding:6px 12px;font-size:12.5px;cursor:pointer;font-family:inherit;color:var(--sub)
+  }
+  .chip.sel{background:var(--green);border-color:var(--green);color:#fff}
+  textarea{
+    width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;
+    font-family:inherit;font-size:14px;resize:vertical;min-height:64px;background:#fff;color:var(--ink)
+  }
+  .logitem{border-bottom:1px solid var(--line);padding:11px 0}
+  .logitem:last-child{border-bottom:0}
+  .logitem .when{font-size:12px;color:var(--sub)}
+  .logitem .what{font-size:14px;margin-top:2px;white-space:pre-wrap}
+  .logitem .marks{margin-top:5px;display:flex;gap:5px;flex-wrap:wrap}
+  .mark{font-size:11px;background:var(--green-soft);color:var(--green);border-radius:99px;padding:2px 8px}
+  .score{display:flex;gap:10px;text-align:center;margin-bottom:4px}
+  .score div{flex:1;background:var(--green-soft);border-radius:11px;padding:11px 6px}
+  .score b{display:block;font-size:21px;color:var(--green)}
+  .score span{font-size:11.5px;color:var(--sub)}
+
+  nav{
+    position:fixed;left:0;right:0;bottom:0;display:flex;
+    background:rgba(255,253,248,.96);backdrop-filter:blur(10px);
+    border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);
+  }
+  nav button{
+    flex:1;border:0;background:none;padding:9px 2px 11px;font-family:inherit;
+    font-size:10.5px;color:var(--sub);cursor:pointer;line-height:1.5;
+  }
+  nav button .ic{display:block;font-size:19px;margin-bottom:1px}
+  nav button.on{color:var(--hot);font-weight:700}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>食べる順番</h1>
+  <p>低カロリーから始めて、ご飯は最後</p>
+</header>
+
+<main>
+
+<!-- ========== 食べる順番（メイン） ========== -->
+<section id="s-order" class="on">
+  <div class="card">
+    <div class="arrowhint">
+      繊維 <b>→</b> 発酵 <b>→</b> たんぱく質 <b>→</b> <b>汁物・ご飯は最後</b>
+    </div>
+    <div class="progressline"><i id="pbar"></i></div>
+    <div class="ladder" id="steps"></div>
+    <button class="btn ghost" id="btnStepReset">チェックをリセット</button>
+    <div class="muted" style="text-align:center;margin-top:8px">食べ終わった段をタップしていくと、順番を守れているか確認できます</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>なぜ順番なのか</h2>
+    <div class="muted">
+      同じ献立でも、ご飯を最初に食べるか最後に食べるかで体の反応が変わります。
+      先に繊維とたんぱく質でお腹をつくっておくと、最後のご飯で血糖が急に上がらず、脂肪をためこみにくくなります。
+      量を減らすより先に、まず順番を変える。これがいちばん効きます。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>体を冷やさない</h2>
+    <div class="warm">
+      <b>最初の一口は必ず温かいものに。</b>冷たい飲み物や生野菜サラダから始めると内臓が冷え、
+      せっかくの順番の効果が落ちます。汁物は最後に回すので、はじめは<b>白湯かお茶</b>で
+      体をあたためてから食べはじめてください。
+    </div>
+    <div style="margin-top:12px" class="muted">
+      <b style="color:var(--ink)">温める食材（毎食どれか1つ）</b><br>
+      生姜・ねぎ・にんにく・唐辛子・山椒・味噌・シナモン・かぼちゃ・根菜（ごぼう・にんじん・れんこん）<br><br>
+      <b style="color:var(--ink)">冷やしやすいもの（控えめに）</b><br>
+      冷たい飲み物・生のトマトきゅうり・果物の食べすぎ・砂糖の多いもの・白い精製食品
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>食事は5時間あける</h2>
+    <div class="muted">
+      前の食事が消化しきる前に食べると、体は消化にかかりきりで脂肪を燃やす作業に入れません。
+      少し空腹を感じてから食べるのが理想です。
+      その間、白湯・お茶など<b style="color:var(--ink)">温かい飲み物</b>はどんどん飲んで大丈夫。
+    </div>
+  </div>
+</section>
+
+<!-- ========== 献立 ========== -->
+<section id="s-rot">
+  <div class="card">
+    <div class="daynav">
+      <button id="dPrev">‹</button>
+      <div class="cur" id="dName">1日目</div>
+      <button id="dNext">›</button>
+    </div>
+    <div class="muted" style="margin-bottom:8px">
+      同じ食材が続かないよう7日で一巡します。<b style="color:var(--ink)">食べる順に上から並んでいます。</b>
+      今食べているものはそのままで大丈夫。「これも足す」「この順で食べる」という使い方でOKです。
+    </div>
+    <div id="rotList"></div>
+  </div>
+  <div class="card">
+    <h2><span class="dot"></span>繊維質のねらい</h2>
+    <div class="muted">
+      繊維は腸を動かし、腸が動くと体温が上がり、燃える土台ができます。
+      目標は<b style="color:var(--ink)">1日20g以上</b>。海藻・きのこ・根菜・豆・こんにゃく・雑穀を、
+      毎食どれか2種類は入れるつもりで。
+    </div>
+  </div>
+</section>
+
+<!-- ========== 記録 ========== -->
+<section id="s-log">
+  <div class="card">
+    <h2><span class="dot"></span>今日の振り返り</h2>
+    <div class="score">
+      <div><b id="stCount">0</b><span>今日の食事</span></div>
+      <div><b id="stOrder">0</b><span>順番を守れた</span></div>
+      <div><b id="stWarm">0</b><span>温かい回</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>食べたものを記録</h2>
+    <textarea id="logText" placeholder="例）味噌汁（わかめ・豆腐）、ひじき煮、焼き鮭、玄米"></textarea>
+    <div class="chips" id="logChips"></div>
+    <button class="btn" id="btnLog">記録する</button>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>記録一覧</h2>
+    <div id="logList" class="muted">まだ記録がありません。</div>
+    <button class="btn ghost" id="btnClear" style="margin-top:14px">すべての記録を消す</button>
+  </div>
+</section>
+
+</main>
+
+<nav>
+  <button class="on" data-t="order"><span class="ic">🍵</span>食べる順番</button>
+  <button data-t="rot"><span class="ic">🗓</span>献立</button>
+  <button data-t="log"><span class="ic">✎</span>記録</button>
+</nav>
+
+<script>
+'use strict';
+const $ = s => document.querySelector(s);
+
+/* ---------- データ ---------- */
+const STEPS = [
+  {t:'温かい白湯・お茶', cal:'0kcal',
+   ex:'白湯・ほうじ茶・番茶',
+   d:'内臓をあたためて消化の準備をする一口。ここを冷たいものにしない。'},
+  {t:'海藻・きのこ', cal:'低カロリー',
+   ex:'わかめ・ひじき・めかぶ・なめこ・しめじ',
+   d:'ほぼカロリーゼロなのに繊維がとても多い。あとから来る糖の吸収をゆるやかにしてくれる。'},
+  {t:'野菜（加熱）', cal:'低カロリー',
+   ex:'おひたし・煮物・きんぴら・温野菜',
+   d:'生より加熱を優先。よく噛むことで、満腹の合図を早めに出しておく。'},
+  {t:'発酵・小鉢', cal:'中',
+   ex:'納豆・ぬか漬け・キムチ・酢の物',
+   d:'腸内環境をととのえて、燃える土台をつくる。少量でいい。'},
+  {t:'たんぱく質', cal:'高め',
+   ex:'魚・肉・豆腐・卵',
+   d:'体温を上げ、筋肉を守る。ここまでで7割の満腹感になっているのが理想。'},
+  {t:'汁物', cal:'低カロリー',
+   ex:'味噌汁・すまし汁・けんちん汁',
+   d:'最後のほうに回す。先に飲むと胃液がうすまって消化の力が落ちるため。あたたかいうちにご飯と一緒に。'},
+  {t:'ご飯（いちばん最後）', cal:'いちばん最後',
+   ex:'雑穀米・玄米なら理想',
+   d:'最後に食べることで血糖の上がり方がゆるやかになり、脂肪をためこみにくくなる。汁物とセットで締める。'}
+];
+
+const ROT = [
+  {汁:'具だくさん味噌汁（わかめ・豆腐・ねぎ）', 繊維:'ひじきの煮物', 発酵:'納豆', 主菜:'焼き鮭', 温め:'生姜', 主食:'雑穀ごはん'},
+  {汁:'根菜の粕汁',           繊維:'切り干し大根',       発酵:'ぬか漬け',     主菜:'鯖の味噌煮',     温め:'ねぎ',      主食:'玄米'},
+  {汁:'けんちん汁',           繊維:'きんぴらごぼう',     発酵:'キムチ',       主菜:'鶏の照り焼き',   温め:'唐辛子',    主食:'雑穀ごはん'},
+  {汁:'なめこと豆腐の味噌汁', 繊維:'ほうれん草の白和え', 発酵:'甘酒（食後）', 主菜:'豆腐ステーキ',   温め:'山椒',      主食:'玄米'},
+  {汁:'豚汁',                 繊維:'おからの煮物',       発酵:'塩麹づけ',     主菜:'卵焼き・厚揚げ', 温め:'にんにく',  主食:'雑穀ごはん'},
+  {汁:'あさりの味噌汁',       繊維:'れんこんのきんぴら', 発酵:'納豆',         主菜:'ぶりの照り焼き', 温め:'生姜',      主食:'玄米'},
+  {汁:'白菜と油揚げの味噌汁', 繊維:'めかぶ・こんにゃく煮', 発酵:'ぬか漬け',   主菜:'あじの開き',     温め:'味噌・七味', 主食:'雑穀ごはん'}
+];
+const ROT_ORDER = ['繊維','発酵','主菜','温め','汁','主食'];
+const ROT_NOTE = {
+  繊維:'まず最初に。海藻・根菜で繊維をかせぐ',
+  発酵:'腸をととのえる小鉢',
+  主菜:'たんぱく質。体温と筋肉を守る',
+  温め:'どれか1つ必ず添える',
+  汁:'終わりのほうで、あたたかいうちに',
+  主食:'いちばん最後に食べる'
+};
+
+const CHIPS = ['順番を守れた','汁物・ご飯は最後','温かかった','繊維たっぷり','生姜など温め食材','食べすぎた'];
+
+/* ---------- 保存 ---------- */
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem('meal_'+k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem('meal_'+k, JSON.stringify(v)); }catch(e){} }
+};
+
+/* ---------- タブ ---------- */
+document.querySelectorAll('nav button').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('nav button').forEach(x => x.classList.remove('on'));
+    document.querySelectorAll('section').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    $('#s-' + b.dataset.t).classList.add('on');
+    window.scrollTo(0,0);
+  };
+});
+
+/* ---------- 食べる順番 ---------- */
+let done = [];
+function drawSteps(){
+  $('#steps').innerHTML = STEPS.map((s,i) => `
+    <div class="stepbox${done.includes(i)?' done':''}${i===STEPS.length-1?' lastone':''}" data-i="${i}">
+      <div class="n">${i+1}</div>
+      <div>
+        <div class="t">${s.t}<span class="cal">${s.cal}</span></div>
+        <div class="ex">${s.ex}</div>
+        <div class="d">${s.d}</div>
+      </div>
+    </div>`).join('');
+  $('#steps').querySelectorAll('.stepbox').forEach(el => {
+    el.onclick = () => {
+      const i = Number(el.dataset.i);
+      done = done.includes(i) ? done.filter(x => x !== i) : done.concat(i);
+      drawSteps();
+    };
+  });
+  $('#pbar').style.width = (done.length / STEPS.length * 100) + '%';
+}
+$('#btnStepReset').onclick = () => { done = []; drawSteps(); };
+drawSteps();
+
+/* ---------- 献立 ---------- */
+let day = store.get('day', 0);
+function drawRot(){
+  day = ((day % 7) + 7) % 7;
+  store.set('day', day);
+  $('#dName').textContent = (day+1) + '日目';
+  const m = ROT[day];
+  $('#rotList').innerHTML = ROT_ORDER.map((k,i) =>
+    `<div class="rot"><div class="tag">${i+1}. ${k}</div>
+       <div class="body">${m[k]}<small>${ROT_NOTE[k]}</small></div></div>`
+  ).join('');
+}
+$('#dPrev').onclick = () => { day--; drawRot(); };
+$('#dNext').onclick = () => { day++; drawRot(); };
+drawRot();
+
+/* ---------- 記録 ---------- */
+let picked = [];
+function drawChips(){
+  $('#logChips').innerHTML = CHIPS.map(c =>
+    `<button class="chip${picked.includes(c)?' sel':''}" data-c="${c}">${c}</button>`
+  ).join('');
+  $('#logChips').querySelectorAll('.chip').forEach(b => {
+    b.onclick = () => {
+      const c = b.dataset.c;
+      picked = picked.includes(c) ? picked.filter(x => x !== c) : picked.concat(c);
+      drawChips();
+    };
+  });
+}
+function clock(ts){
+  const d = new Date(ts);
+  return d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');
+}
+function sameDay(ts){
+  return new Date(ts).toDateString() === new Date().toDateString();
+}
+function drawLog(){
+  const logs = store.get('logs', []);
+  const today = logs.filter(l => sameDay(l.ts));
+  $('#stCount').textContent = today.length;
+  $('#stOrder').textContent = today.filter(l => l.marks.includes('順番を守れた')).length;
+  $('#stWarm').textContent  = today.filter(l => l.marks.includes('温かかった')).length;
+
+  if(!logs.length){ $('#logList').innerHTML = 'まだ記録がありません。'; return; }
+  $('#logList').innerHTML = logs.slice(0,30).map(l => {
+    const d = new Date(l.ts);
+    const when = (d.getMonth()+1)+'/'+d.getDate()+' '+clock(l.ts);
+    const marks = l.marks.map(m => `<span class="mark">${m}</span>`).join('');
+    return `<div class="logitem"><div class="when">${when}</div>
+      <div class="what">${(l.text||'（内容なし）').replace(/</g,'&lt;')}</div>
+      <div class="marks">${marks}</div></div>`;
+  }).join('');
+}
+$('#btnLog').onclick = () => {
+  const text = $('#logText').value.trim();
+  if(!text && !picked.length) return;
+  const logs = store.get('logs', []);
+  logs.unshift({ ts: Date.now(), text, marks: picked.slice() });
+  store.set('logs', logs.slice(0,300));
+  $('#logText').value = '';
+  picked = [];
+  drawChips(); drawLog();
+};
+$('#btnClear').onclick = () => {
+  if(confirm('すべての記録を消します。よろしいですか？')){
+    store.set('logs', []); drawLog();
+  }
+};
+drawChips(); drawLog();
+</script>
+</body>
+</html>
