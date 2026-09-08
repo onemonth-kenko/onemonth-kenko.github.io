@@ -281,9 +281,10 @@ input:focus,select:focus,textarea:focus{
 .choice:hover{border-color:var(--sea)}
 .choice input{margin-top:5px;accent-color:var(--sea);width:18px;height:18px;flex:none}
 .choice.sel{border-color:var(--sea);background:rgba(23,115,135,.05);box-shadow:0 0 0 2px rgba(23,115,135,.12)}
-.choice .ct{font-size:.95rem;font-weight:800;color:var(--ink)}
-.choice .cd{font-size:.82rem;color:var(--ink-soft);line-height:1.7;margin-top:2px}
-.choice .cp{margin-left:auto;font-family:var(--serif);font-weight:800;font-size:1.05rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.choice > span:not(.cp){flex:1;min-width:0}
+.choice .ct{display:block;font-size:.95rem;font-weight:800;color:var(--ink)}
+.choice .cd{display:block;font-size:.82rem;color:var(--ink-soft);line-height:1.7;margin-top:2px}
+.choice .cp{flex:none;margin-left:auto;font-family:var(--serif);font-weight:800;font-size:1.05rem;white-space:nowrap;font-variant-numeric:tabular-nums;align-self:center}
 .total{
   background:var(--sea-deep);color:#fff;border-radius:14px;padding:20px 24px;margin:8px 0 26px;
   display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
