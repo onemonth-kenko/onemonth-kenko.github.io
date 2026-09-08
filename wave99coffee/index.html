@@ -218,6 +218,23 @@ section{padding:78px 0}
   .spec th{border-bottom:none;padding-bottom:6px}
   .spec td{padding-top:0}
 }
+.story{display:grid;gap:28px;align-items:center;margin-top:8px}
+@media(min-width:820px){.story{grid-template-columns:1fr 1.15fr;gap:44px}}
+.story-photo img{width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:18px;display:block}
+.story-text p{color:var(--ink-soft);font-size:.98rem;margin-bottom:16px}
+.story-text p.big{color:var(--ink);font-family:var(--serif);font-size:1.12rem;font-weight:800;line-height:1.8}
+.story-quote{
+  margin-top:26px;padding:22px 24px;border-left:4px solid var(--sun);background:var(--card);
+  border-radius:0 14px 14px 0;font-family:var(--serif);font-size:1.15rem;font-weight:800;line-height:1.7;
+}
+.story-quote small{display:block;font-family:var(--gothic);font-size:.84rem;color:var(--ink-soft);font-weight:600;margin-top:8px}
+.quality{display:grid;gap:14px;margin-top:34px}
+@media(min-width:640px){.quality{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.quality{grid-template-columns:repeat(4,1fr)}}
+.quality div{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:22px 20px}
+.quality .ql{font-size:.7rem;letter-spacing:.14em;font-weight:800;color:var(--sun)}
+.quality b{display:block;font-family:var(--serif);font-size:1.08rem;margin:6px 0 8px;line-height:1.5}
+.quality p{font-size:.86rem;color:var(--ink-soft);line-height:1.8}
 .promises{display:grid;gap:12px;margin-top:22px}
 @media(min-width:700px){.promises{grid-template-columns:repeat(4,1fr)}}
 .promises div{
@@ -392,11 +409,12 @@ footer a{color:var(--foam-lt)}
     <p class="eyebrow">2026 / 09 / 09 — 09 / 23　WAVE99 COFFEE DAY</p>
     <h1>9月9日は、<br><em>Wave 99</em> はじまりの日</h1>
     <p class="sub">
-      千葉・九十九里に、<span class="nb">Wave 99 という秘密基地</span>をつくりました。<span class="nb">99は九十九里の99。</span>だから<span class="nb">9と9が並ぶ9月9日</span>を、<span class="nb">基地の記念日</span>にします。<span class="nb">その名前をつけた</span>自家焙煎コーヒーを、<span class="nb">15日間だけ</span>売ります。
+      千葉・九十九里の海のそばに、<span class="nb">Wave 99 という</span><span class="nb">大人の秘密基地</span>をつくりました。<span class="nb">99は九十九里の99。</span>だから<span class="nb">9と9が並ぶ9月9日</span>を、<span class="nb">基地の記念日</span>にします。<br>その名前をつけた自家焙煎コーヒーを、<span class="nb">15日間だけ</span>売ります。<span class="nb">2021年から焼きつづけて</span>、<span class="nb">5年かけてたどり着いた</span>エチオピアの一杯です。
     </p>
     <div class="facts">
       <span>Qグレード 87.17点</span>
       <span>1杯あたり 99円</span>
+      <span>5年かけた自家焙煎</span>
       <span>エチオピア イルガチャフェ</span>
       <span>限定 99セット</span>
       <span>送料 一律200円</span>
@@ -421,17 +439,62 @@ footer a{color:var(--foam-lt)}
     <div>
       <p class="l">Q GRADE</p>
       <p class="n">87.17<small>点</small></p>
-      <p class="d">スペシャルティの基準は80点以上。<br>数字がそのまま格を語ります。</p>
+      <p class="d">80点以上でスペシャルティ、<br>85点以上でトップスペシャルティ。<br>87.17点は、そのさらに上です。</p>
     </div>
     <div>
       <p class="l">PER CUP</p>
       <p class="n">99<small>円</small></p>
-      <p class="d">100gで約10杯。999円だから、<br>1杯ちょうど99円になります。</p>
+      <p class="d">100gで約10杯。999円だから、<br>1杯ちょうど99円。<br>コンビニの一杯より安い計算です。</p>
     </div>
     <div>
       <p class="l">SHIPPING</p>
       <p class="n">200<small>円</small></p>
-      <p class="d">送料は一律200円。<br>いくつ買っても200円です。</p>
+      <p class="d">送料は一律200円。<br>いくつ買っても200円なので、<br>まとめ買いほど得になります。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ストーリー ===== -->
+<section id="story" class="wrap reveal">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2>「1杯で3杯分」の味わいを、<span class="nb">5年かけて。</span></h2>
+    <p>
+      <span class="nb">WAVE99 COFFEE</span> は、2021年に「自分が毎日飲むコーヒーを、<span class="nb">もっと安く、もっとおいしく</span>」と始めた自家焙煎です。世界中の豆を取り寄せ、焼き方を変えては飲みくらべ、<span class="nb">5年かけて</span>やっと理想の一杯にたどり着きました。
+    </p>
+  </div>
+  <div class="story">
+    <div class="story-photo"><img src="img/sunset-sea.jpg" alt="九十九里の海に沈む夕陽"></div>
+    <div class="story-text">
+      <p class="big">目指したのは、<span class="nb">海に沈む夕陽のような一杯。</span></p>
+      <p>1秒ごとに色が移り変わっていくあの景色のように、飲んでいるあいだに味がグラデーションを描いて変わっていく。はじめの一口と、冷めてきたころの一口で、<span class="nb">別のコーヒーのように味が重なります。</span>だから「1杯で3杯分の味わい」。</p>
+      <p>家に来た人に淹れたり、お世話になった人に贈ったりしているうちに、<span class="nb">「売ってほしい」</span>と言われることが増えました。それなら、5年かけたこの一杯をみんなと分かち合おう。<span class="nb">最高のひと時</span>を毎日気軽に楽しめるように、<span class="nb">値段も本気で下げよう。</span>そうして生まれたのが <span class="nb">WAVE99 COFFEE</span> です。</p>
+      <div class="story-quote">
+        「波のように、<span class="nb">心地よく響き続ける一杯を」</span>
+        <small>忙しい1日のなかの、15分のオアシスに。</small>
+      </div>
+    </div>
+  </div>
+  <div class="quality">
+    <div>
+      <span class="ql">01 ── SPECIALTY GRADE</span>
+      <b>最高級を、毎日の値段で</b>
+      <p>最高級グレードの豆だけを、毎日飲める値段で。豆の原価が上がっていても、<span class="nb">「特別な一杯を、特別じゃない価格で」</span>は曲げません。</p>
+    </div>
+    <div>
+      <span class="ql">02 ── SMALL BATCH ROASTING</span>
+      <b>少量ずつ、自分の目で</b>
+      <p>香りと音を感じながら、少量ずつ手で焼きます。ご注文をいただいてから焼くので、<span class="nb">届くころがいちばんおいしい。</span></p>
+    </div>
+    <div>
+      <span class="ql">03 ── CURATED SELECTION</span>
+      <b>たくさんは扱わない</b>
+      <p>種類も焙煎度合いも、あえて絞ります。その代わり<span class="nb">「いまはこれが最高」</span>と思う豆だけをお届けします。</p>
+    </div>
+    <div>
+      <span class="ql">04 ── ALWAYS EVOLVING</span>
+      <b>ここがゴールではない</b>
+      <p>5年かけてたどり着いた味。でも進化は続きます。来年の99の日には、<span class="nb">また少し違う一杯</span>になっているかもしれません。</p>
     </div>
   </div>
 </section>
@@ -439,10 +502,10 @@ footer a{color:var(--foam-lt)}
 <!-- ===== 商品 ===== -->
 <section id="items" class="wrap reveal">
   <div class="sec-head">
-    <span class="sec-num">02</span>
+    <span class="sec-num">03</span>
     <h2>売るもの、三つ。</h2>
     <p>
-      価格は<span class="nb">ぜんぶ9で終わります</span>。<span class="nb">袋は削らず100gのまま</span>、<span class="nb">単価のほうを99円に</span>そろえました。<span class="nb">Wave99セット</span>は<b>限定99セット</b>、<span class="nb">売り切れた時点で終わります。</span>
+      迷ったら、真ん中の<b>Wave99セット</b>です。3袋で約30杯、<span class="nb">淹れ方ガイド</span>も入っているので、<span class="nb">はじめての方にいちばんおすすめ</span>です。まず一杯だけ試したい方は<span class="nb">100gパック</span>、九十九里まで遊びに来たい方は<span class="nb">基地セット</span>を。価格は<span class="nb">ぜんぶ9で終わる</span>、99の日だけの値段です。
     </p>
   </div>
 
@@ -463,7 +526,7 @@ footer a{color:var(--foam-lt)}
     </div>
 
     <div class="item hot">
-      <span class="tag">本命・限定99セット</span>
+      <span class="tag">いちばんおすすめ・限定99セット</span>
       <h3>Wave99セット</h3>
       <p class="en">WAVE99 SET</p>
       <p class="price">¥2,799<span>税込</span></p>
@@ -476,7 +539,7 @@ footer a{color:var(--foam-lt)}
         <li>「99のはなし」カード</li>
         <li>手紙を一通</li>
       </ul>
-      <p class="note"><span class="nb">記念日の本体です。</span><br><span class="nb">99セットで打ち切ります。</span></p>
+      <p class="note"><span class="nb">記念日の本体です。</span><span class="nb">贈りものにも。</span><br><span class="nb">99セットで打ち切ります。</span></p>
       <a href="#order" class="btn btn-main" data-pick="set">これを注文する</a>
     </div>
 
@@ -503,44 +566,44 @@ footer a{color:var(--foam-lt)}
   </p>
 </section>
 
-<!-- ===== 重なる ===== -->
+<!-- ===== こんな時間に ===== -->
 <section class="band reveal">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-num">03</span>
-      <h2>ぜんぶ「重なる」で、つながっていました。</h2>
+      <span class="sec-num">04</span>
+      <h2>1日のなかに、15分のオアシスを。</h2>
       <p>
-        <span class="nb">WAVE99 COFFEE</span> は<span class="nb">2021年からの自家焙煎ブランド</span>です。もともと持っていた言葉と、九十九里と、9月9日が、<span class="nb">ひとつの言葉</span>でつながりました。狙って合わせたわけではなく、<span class="nb">もともとそうだったもの</span>が<span class="nb">9月9日に集まっただけ</span>です。
+        高いコーヒーを、たまに飲むのではなく。<span class="nb">いちばんいいコーヒー</span>を、<span class="nb">毎日の当たり前</span>にしてほしい。だから<span class="nb">1杯99円</span>にしました。<span class="nb">「ありがとう」</span>とつぶやきたくなるような、<span class="nb">満たされた15分</span>を、あなたの日常に。
       </p>
     </div>
     <div class="kasanaru">
       <div>
-        <b>波</b>
-        <p>波は、<span class="nb">重なって寄せる。</span><span class="nb">「波のように、</span><span class="nb">心地よく響き続ける一杯を」</span>──<span class="nb">WAVE99 COFFEE</span> が<span class="nb">最初から掲げている言葉</span>です。</p>
+        <b>朝、いちばんに</b>
+        <p>湯を沸かして、40秒待つ。<span class="nb">まだ誰も起きていない時間</span>に飲む一杯が、<span class="nb">その日をつくります。</span></p>
       </div>
       <div>
-        <b>九十九里</b>
-        <p><span class="nb">九が十九里、重なる浜。</span>だから99。<span class="nb">基地の名前の由来</span>が、そのまま<span class="nb">浜の名前の由来</span>でもあります。</p>
+        <b>仕事の合間に</b>
+        <p>画面から目を離して、15分。冷めていくあいだに味が変わるので、<span class="nb">ゆっくり飲むほど</span>得をします。</p>
       </div>
       <div>
-        <b>味</b>
-        <p>フレーバーが<span class="nb">時間とともに重なって</span>変化していきます。<span class="nb">「1杯で3杯分の味わい」</span>というのは、<span class="nb">そういう意味です。</span></p>
+        <b>サウナや風呂のあとに</b>
+        <p>水もいいけれど、少し落ち着いてからの熱い一杯が最高です。<span class="nb">ととのった体</span>に、香りだけがすうっと入ってきます。</p>
       </div>
       <div>
-        <b>9と9</b>
-        <p>9月9日、<span class="nb">九が重なる日。</span>（あとで知ったのですが、<span class="nb">重陽の節句</span>でもあるそうです。<span class="nb">昔の人も</span><span class="nb">九が重なる日</span>をめでたいと思っていた、というのがうれしくて）</p>
+        <b>だれかと一緒に</b>
+        <p>3袋あれば、<span class="nb">1袋は贈れます。</span>「いい豆があるんだけど」の一言で、<span class="nb">会う理由</span>がひとつ増えます。</p>
       </div>
     </div>
-    <p class="kimon">重なる日に、重なる味を。<span><small>WAVE99 COFFEE ／ 2026年 99の日</small></span></p>
+    <p class="kimon">特別な一杯を、特別じゃない値段で。<span><small>WAVE99 COFFEE ／ 2026年 99の日</small></span></p>
   </div>
 </section>
 
 <!-- ===== 豆 ===== -->
 <section id="bean" class="wrap reveal">
   <div class="sec-head">
-    <span class="sec-num">04</span>
+    <span class="sec-num">05</span>
     <h2>豆のこと。</h2>
-    <p><span class="nb">具体的な固有名詞</span>は、<span class="nb">それ自体が信用になります。</span><span class="nb">隠すところがないので</span>、<span class="nb">全部書きます。</span></p>
+    <p>産地も、農園も、点数も、<span class="nb">全部書きます。</span>具体的な名前は、<span class="nb">それ自体が信用になる</span>と思っているからです。</p>
   </div>
   <div class="spec">
     <table>
@@ -552,24 +615,18 @@ footer a{color:var(--foam-lt)}
       <tr><th>精製</th><td>ナチュラル精製／天日乾燥（アフリカンベッド）</td></tr>
       <tr><th>栽培</th><td>バナナの日陰栽培（シェードツリー）</td></tr>
       <tr><th>焙煎</th><td>自家焙煎（2021年〜）。ご注文をいただいてから、少量ずつ焼きます</td></tr>
-      <tr><th>味わい</th><td>飲んでいるあいだに味が重なって変わっていきます。「1杯で3杯分の味わい」</td></tr>
+      <tr><th>味わい</th><td>ナチュラル精製のイルガチャフェらしい、果実のような甘い香り。飲んでいるあいだに味が重なって変わり、余韻が長く続きます。「1杯で3杯分の味わい」</td></tr>
     </table>
-  </div>
-  <div class="promises">
-    <div>SPECIALTY GRADE</div>
-    <div>SMALL BATCH ROASTING</div>
-    <div>CURATED SELECTION</div>
-    <div>ALWAYS EVOLVING</div>
   </div>
 </section>
 
 <!-- ===== 淹れ方 ===== -->
 <section class="wrap reveal">
   <div class="sec-head">
-    <span class="sec-num">05</span>
+    <span class="sec-num">06</span>
     <h2>朝の5分を、いちばんいい時間にする。</h2>
     <p>
-      基地では、<span class="nb">朝がいちばんいい時間</span>です。波の音で目が覚めて、火を熾して、湯を沸かす。<span class="nb">まだ誰も起きていない時間に飲む一杯</span>が、いちばんうまい。台所でも、<span class="nb">ちゃんと同じ時間になります。</span>
+      基地では、<span class="nb">朝がいちばんいい時間</span>です。波の音で目が覚めて、火を熾して、湯を沸かす。<span class="nb">まだ誰も起きていない時間に飲む一杯</span>が、いちばんうまい。台所でも、<span class="nb">ちゃんと同じ時間になります。</span>特別な道具はいりません。ドリッパーとお湯と、<span class="nb">5分だけ。</span>
     </p>
   </div>
   <div class="brew">
@@ -594,7 +651,7 @@ footer a{color:var(--foam-lt)}
       <span class="eyebrow">BASE SET ── ¥9,999</span>
       <h3>コーヒーに、<br>九十九里に来る権利をつけました。</h3>
       <p>
-        <span class="nb">海のすぐそばで</span>、<span class="nb">井戸を掘って</span>、<span class="nb">太陽で発電して</span>、<span class="nb">薪で風呂を沸かす。</span><span class="nb">大人の秘密基地</span>です。<span class="nb">私がガイドします。</span><span class="nb">やりたいことを先に決めておかず</span>、<span class="nb">来る人に合わせる。</span>それが<span class="nb">この権利のいちばんの価値</span>だと思っています。
+        <span class="nb">Wave 99</span> は、千葉県旭市・九十九里の<span class="nb">海のすぐそば</span>にある<span class="nb">大人の秘密基地</span>です。<span class="nb">井戸を掘って</span>、<span class="nb">太陽で発電して</span>、薪で風呂とサウナを沸かしています。<span class="nb">私がガイドします。</span><span class="nb">やりたいことを先に決めておかず</span>、<span class="nb">来る人に合わせる。</span>それが<span class="nb">この権利のいちばんの価値</span>だと思っています。
       </p>
       <div class="acts">
         <span>サーフィン</span><span>釣り</span><span>薪サウナ</span><span>焚き火</span><span>ただ海を見る</span>
@@ -612,10 +669,10 @@ footer a{color:var(--foam-lt)}
 <section id="order" class="band reveal">
   <div class="narrow">
     <div class="sec-head" style="text-align:center">
-      <span class="sec-num">06</span>
+      <span class="sec-num">07</span>
       <h2>注文する</h2>
       <p style="margin-inline:auto">
-        <span class="nb">フォームを送っていただくと</span>、<span class="nb">こちらから確認のご連絡</span>をします。お支払いは<b style="color:#fff">銀行振込</b>か<b style="color:#fff">カード決済</b>をお選びいただけます。
+        <span class="nb">フォームを送っていただくと</span>、<span class="nb">こちらから確認のご連絡</span>をします。お支払いは<b style="color:#fff">銀行振込</b>か<b style="color:#fff">カード決済</b>。カード情報を<span class="nb">このページに入力すること</span>はありません。
       </p>
     </div>
 
@@ -766,11 +823,23 @@ footer a{color:var(--foam-lt)}
 <!-- ===== FAQ ===== -->
 <section class="wrap reveal">
   <div class="sec-head">
-    <span class="sec-num">07</span>
+    <span class="sec-num">08</span>
     <h2>よくある質問</h2>
   </div>
   <div class="faq">
     <details open>
+      <summary>どんな味のコーヒーですか？</summary>
+      <div class="a">エチオピア・イルガチャフェの<span class="nb">ナチュラル精製</span>で、果実のような甘い香りが特徴です。いちばんの特徴は、飲んでいるあいだに味が変わっていくこと。熱いうちと、少し冷めてからで、<span class="nb">別の顔が出てきます。</span>それを「1杯で3杯分の味わい」と呼んでいます。<span class="nb">苦いだけのコーヒーが苦手な方</span>にこそ、試してほしい一杯です。</div>
+    </details>
+    <details>
+      <summary>コーヒーに詳しくなくても大丈夫ですか？</summary>
+      <div class="a">大丈夫です。むしろそういう方に飲んでほしくて、この値段にしました。ドリッパーとお湯があれば淹れられますし、<span class="nb">淹れ方のガイド</span>を一枚入れておきます。ミルがなければ<span class="nb">「粉」を選んでください。</span></div>
+    </details>
+    <details>
+      <summary>Wave 99 って、何ですか？</summary>
+      <div class="a">千葉県旭市・九十九里の海のそばにある、<span class="nb">大人の秘密基地</span>です。井戸を掘って、太陽で発電して、薪で風呂とサウナを沸かしています。<span class="nb">99は九十九里の99。</span><span class="nb">WAVE99 COFFEE</span> は、この基地の名前をつけた<span class="nb">2021年からの自家焙煎コーヒー</span>です。</div>
+    </details>
+    <details>
       <summary>いつ届きますか？</summary>
       <div class="a"><span class="nb">ご注文をいただいてから焼きます。</span>ご入金の確認後、<span class="nb">おおむね3〜7日ほど</span>での発送になります。<span class="nb">クリックポストでお送りする</span>ので、<span class="nb">ポストに届きます。</span><span class="nb">注文が重なった場合は</span>、<span class="nb">順番に焼いていきます。</span></div>
     </details>
@@ -812,6 +881,7 @@ footer a{color:var(--foam-lt)}
       <div>
         <h4>WAVE 99 COFFEE</h4>
         <p>波のように、心地よく響き続ける一杯を。<br>千葉県旭市・九十九里の秘密基地 Wave 99 から、2021年より自家焙煎でお届けしています。</p>
+        <p style="margin-top:10px"><a href="https://hug4.org/wave99coffee/" target="_blank" rel="noopener">WAVE99 COFFEE のサイトを見る →</a></p>
         <p style="margin-top:14px">いま、いざ、いつか。</p>
       </div>
       <div>
