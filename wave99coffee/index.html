@@ -44,10 +44,19 @@ body{
   font-family:var(--gothic);background:var(--paper);color:var(--ink);
   line-height:1.95;letter-spacing:.02em;-webkit-font-smoothing:antialiased;
   overflow-x:hidden;
+  /* 日本語の折り返し：文節で折り返し、禁則処理を効かせる */
+  word-break:auto-phrase;
+  line-break:strict;
+  overflow-wrap:break-word;
 }
+/* auto-phrase 非対応ブラウザでも、単語の途中で切れないように */
+@supports not (word-break:auto-phrase){
+  body{word-break:normal}
+}
+p,li,td,th,dd,figcaption,.desc,.note,.hint,.cd,.lede{text-wrap:pretty}
 img{max-width:100%;display:block}
 a{color:var(--sea)}
-h1,h2,h3{font-family:var(--serif);line-height:1.45;text-wrap:balance;font-weight:800}
+h1,h2,h3{font-family:var(--serif);line-height:1.45;text-wrap:balance;font-weight:800;word-break:auto-phrase}
 .wrap{width:min(1060px,92vw);margin-inline:auto}
 .narrow{width:min(760px,92vw);margin-inline:auto}
 ::selection{background:var(--foam-lt);color:var(--sea-deep)}
